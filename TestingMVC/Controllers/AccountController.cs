@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TestingMVC.Models;
 
 namespace TestingMVC.Controllers
@@ -39,6 +41,7 @@ namespace TestingMVC.Controllers
                   IdentityResult result=  await userManager.CreateAsync(user, registerUserVM.Password);
                 if(result.Succeeded)
                 {
+                   // IdentityResult roleResult = await userManager.AddToRoleAsync(user,"Admin");
                     //generate cookie
                     await  signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("ShowAllCourses", "Course");
@@ -69,6 +72,9 @@ namespace TestingMVC.Controllers
                    bool found= await userManager.CheckPasswordAsync(applicationUserDB, loginViewModel.Password);
                     if (found == true)
                     {
+                        List<Claim> claims = new List<Claim>();
+                        claims.Add(new Claim("Institute","ITI"));
+                       //await  signInManager.SignInWithClaimsAsync(applicationUserDB,loginViewModel.RememberMe, claims);   
                        await signInManager.SignInAsync(applicationUserDB, loginViewModel.RememberMe);
                         return RedirectToAction("ShowAllCourses", "Course");
                     }
@@ -85,10 +91,15 @@ namespace TestingMVC.Controllers
             return RedirectToAction("Login");
         }
 
-
+        [Authorize]
         public IActionResult Test()
         {
-            return Content("leo");
+            string name = User.Identity.Name;
+            Claim claim =  User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            //Claim claim2 = User.Claims.FirstOrDefault(c => c.Type == "Institute");
+            bool HasRoe = User.IsInRole("Admin");
+
+            return Content(name + "   " + claim.Value);// + "  "+ claim2.Value);
         }
     
     }
