@@ -1,0 +1,23 @@
+﻿@model List<TraineeCourseResult>
+
+<h1>Trainee Course Data</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Trainee Name</th>
+            <th>Course Name</th>
+            <th>Degree</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TraineeName</td>
+                <td>@item.CourseName</td>
+                <td style="color:@item.Color">@item.Degree</td>
+            </tr>
+        }
+    </tbody>
+</table>

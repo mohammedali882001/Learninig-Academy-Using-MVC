@@ -1,0 +1,24 @@
+﻿@model TraineeCourseResult
+
+@{
+    ViewData["Title"] = "ShowTraineeReport";
+}
+
+<h1>Trainee Degree</h1>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>TraineeName</th>
+            <th>CourseName</th>
+            <th>Degree</th>
+        </tr>
+    </thead>
+
+    <tr>
+        <td>@Model.TraineeName</td>
+        <td>@Model.CourseName</td>
+        <td style="color:@Model.Color">@Model.Degree</td>
+    </tr>
+</table>

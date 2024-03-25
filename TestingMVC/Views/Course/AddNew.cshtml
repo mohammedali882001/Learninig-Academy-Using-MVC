@@ -1,0 +1,54 @@
+﻿@model AddNewCourseWithLDepartment
+@{
+    ViewData["Title"] = "AddNew";
+}
+
+@{
+    SelectList DeptItems = new SelectList(Model.Departments, "Id", "Name", Model.DeptId);
+}
+
+<form method="post" asp-action="SaveNew" asp-controller="Course">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Degree"></label>
+        <input asp-for="Degree" class="form-control" />
+        <span class="text-danger" asp-validation-for="Degree"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MinDegee"></label>
+        <input asp-for="MinDegee" class="form-control" />
+        <span class="text-danger" asp-validation-for="MinDegee"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Hours"></label>
+        <input asp-for="Hours" class="form-control" />
+        <span class="text-danger" asp-validation-for="Hours"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DeptId"></label>
+        <select asp-for="DeptId" asp-items="@DeptItems" class="form-control">
+            <option value="0">--- Select Department ---</option>
+        </select>
+        <span class="text-danger" asp-validation-for="DeptId"></span>
+
+    </div>
+
+   
+
+    <button type="submit" class="btn btn-success">Create</button>
+</form>
+@* <a href="/Course/ShowAllCourses" class="btn btn-secondary mt-2">Back to List</a> *@
+<a asp-action="ShowAllCourses" asp-controller="Course" class="btn btn-secondary mt-2">Back to List</a>
+<partial name="_ValidationScriptsPartial"></partial>

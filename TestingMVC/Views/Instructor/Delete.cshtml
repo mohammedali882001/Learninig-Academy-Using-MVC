@@ -1,0 +1,26 @@
+﻿@* @model Instructor
+@{
+    ViewData["Title"] = "Delete";
+}
+<h3>Do you Want To Delete This Instructor ?</h3>
+
+<form method="post" action="/Instructor/SaveDelete/@Model.Id">
+
+    <input type="submit" value="Yes Delete" class="btn btn-success" />
+
+</form>
+
+<a href="/Instructor/index">Back To List</a> *@
+
+@model Instructor
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h3>Delete Instructor</h3>
+<p>Are you sure you want to delete the instructor <strong>@Model.Name</strong>?</p>
+
+<form method="post" action="/Instructor/SaveDelete/@Model.Id">
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="/Instructor/Index" class="btn btn-secondary">Cancel</a>
+</form>

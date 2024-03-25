@@ -1,0 +1,127 @@
+﻿@* @model InstuctorAddithListOfDeptAndCourse
+@{
+    ViewData["Title"] = "Edit";
+}
+<h1>New Instructor</h1>
+
+<form method="post" action="/Instructor/SaveEdit/@Model.Id">
+    <label>Name</label>
+    <input type="text" name="Name" id="Name" value="@Model?.Name" class="form form-control" />
+
+    <label>Image</label>
+    <input type="text" name="Image" id="Image" value="@Model?.Image" class="form form-control" />
+
+    <label>Salary</label>
+    <input type="number" name="Salary" id="Salary" value="@Model?.Salary" class="form form-control" />
+
+    <label>Address</label>
+    <input type="text" name="Address" id="Address" value="@Model?.Address" class="form form-control" />
+
+    <label>Course</label>
+    <select name="CrsId" id="CrsId" class="form form-control">
+        @foreach (Course CrsItem in Model?.Courses)
+        {
+            if (Model.CrsId == CrsItem.Id)
+            {
+                <option value="@CrsItem.Id" selected>@CrsItem.Name</option>
+            }
+            else
+            {
+                <option value="@CrsItem.Id">@CrsItem.Name</option>
+            }
+        }
+    </select>
+
+    <label>Department</label>
+
+    <select name="DeptId" id="DeptId" class="form form-control">
+        @foreach (Department DeptItem in Model?.Departments)
+        {
+            if (Model.DeptId == DeptItem.Id)
+            {
+                <option value="@DeptItem.Id" selected>@DeptItem.Name</option>
+            }
+            else
+            {
+                <option value="@DeptItem.Id">@DeptItem.Name</option>
+            }
+        }
+    </select>
+
+
+
+
+
+    <input type="submit" value="Edit" class="btn btn-success" />
+
+</form>
+
+<a href="/Instructor/index">Back To List</a> *@
+
+
+@model InstuctorAddithListOfDeptAndCourse
+@{
+    ViewData["Title"] = "Edit Instructor";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" action="/Instructor/SaveEdit/@Model.Id">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" name="Name" id="Name" value="@Model?.Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Image">Image</label>
+        <input type="text" name="Image" id="Image" value="@Model?.Image" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Salary">Salary</label>
+        <input type="number" name="Salary" id="Salary" value="@Model?.Salary" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Address">Address</label>
+        <input type="text" name="Address" id="Address" value="@Model?.Address" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="CrsId">Course</label>
+        <select name="CrsId" id="CrsId" class="form-control">
+            @foreach (Course CrsItem in Model?.Courses)
+            {
+                if (Model.CrsId == CrsItem.Id)
+                {
+                    <option value="@CrsItem.Id" selected>@CrsItem.Name</option>
+                }
+                else
+                {
+                    <option value="@CrsItem.Id">@CrsItem.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="DeptId">Department</label>
+        <select name="DeptId" id="DeptId" class="form-control">
+            @foreach (Department DeptItem in Model?.Departments)
+            {
+                if (Model.DeptId == DeptItem.Id)
+                {
+                    <option value="@DeptItem.Id" selected>@DeptItem.Name</option>
+                }
+                else
+                {
+                    <option value="@DeptItem.Id">@DeptItem.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+
+<a href="/Instructor/Index" class="btn btn-secondary mt-2">Back to List</a>

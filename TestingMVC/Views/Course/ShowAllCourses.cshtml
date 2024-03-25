@@ -1,0 +1,144 @@
+﻿@* @model List<Course>
+
+<h1>Courses</h1>
+<div class="actions">
+    <a asp-action="AddNew" asp-controller="Course" class="btn btn-success">Add New Course</a>
+
+    <a asp-action="ShowAllCourses" asp-controller="Course" class="btn btn-info">Refresh</a>
+</div>
+
+<div class="search-form">
+
+    <form asp-action="ShowAllCourses" asp-controller="Course" method="get">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search by name">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Degree</th>
+            <th>Min Degree</th>
+            <th>Hours</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.Name</td>
+                <td>@course.Degree</td>
+                <td>@course.MinDegee</td>
+                <td>@course.Hours</td>
+                <td>@course.Department.Name</td>
+                <td>
+                  
+                    <a asp-action="Edit" asp-controller="Course" asp-route-id="@course.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-controller="Course" asp-route-id="@course.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ *@
+
+@model List<Course>
+
+<h1>Courses</h1>
+<div class="actions">
+    <a asp-action="AddNew" asp-controller="Course" class="btn btn-success">Add New Course</a>
+    <a asp-action="ShowAllCourses" asp-controller="Course" class="btn btn-info">Refresh</a>
+</div>
+
+<div class="search-form">
+    <form asp-action="ShowAllCourses" asp-controller="Course" method="get">
+        <div class="input-group">
+            <input type="text" id="courseName" name="search" class="form-control" placeholder="Search by name">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="Div1"></div>
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Degree</th>
+            <th>Min Degree</th>
+            <th>Hours</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.Name</td>
+                <td>@course.Degree</td>
+                <td>@course.MinDegee</td>
+                <td>@course.Hours</td>
+                <td>@course.Department.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Course" asp-route-id="@course.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-controller="Course" asp-route-id="@course.Id" class="btn btn-danger">Delete</a>
+                    <a href="#" onclick="getCrsDetails(@course.Id)"  class="btn btn-danger">Details</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script>
+       
+        $(function () {
+            var courseNames = @Html.Raw(Json.Serialize(Model.Select(c => c.Name)));
+
+            $("#courseName").autocomplete({
+                source: courseNames
+            });
+        });
+    </script>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function getCrsDetails(crsId) {
+        event.preventDefault();//href
+        $.ajax(
+            {
+                url: "/Course/CourseDetails?id=" + crsId,
+                success: function (result) {
+                    console.log(result)
+                    //$("#div1").html(result);//dom
+                    $("#Div1").html(result);
+
+
+                }
+
+            });
+    }
+</script>
