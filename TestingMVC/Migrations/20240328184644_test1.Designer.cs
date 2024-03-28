@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestingMVC.Models;
 
@@ -11,9 +12,11 @@ using TestingMVC.Models;
 namespace TestingMVC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240328184644_test1")]
+    partial class test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,9 +304,6 @@ namespace TestingMVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isTest1")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isTest2")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

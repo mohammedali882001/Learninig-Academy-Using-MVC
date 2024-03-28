@@ -10,6 +10,9 @@
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<Trainee> Trainees { get; set; }
 
+        public bool isTest1 { get; set; } = false;
+        public bool isTest2 { get; set; } = true;
+
 
     }
 }
